@@ -76,8 +76,6 @@ export default function (Alpine) {
 
             restoreScroll && storeScrollInformationInHtmlBeforeNavigatingAway()
 
-            showProgressBar && finishAndHideProgressBar()
-
             cleanupAlpineElementsOnThePageThatArentInsideAPersistedElement()
 
             updateCurrentPageHtmlInHistoryStateForLaterBackButtonClicks()
@@ -163,7 +161,6 @@ export default function (Alpine) {
                 })
 
                 swapCurrentPageWithNewHtml(html, () => {
-                    removeAnyLeftOverStaleProgressBars()
 
                     removeAnyLeftOverStaleTeleportTargets(document.body)
 
@@ -178,6 +175,10 @@ export default function (Alpine) {
                         autofocus && autofocusElementsWithTheAutofocusAttribute()
 
                         nowInitializeAlpineOnTheNewPage(Alpine)
+
+                        showProgressBar && finishAndHideProgressBar()
+                        
+                        removeAnyLeftOverStaleProgressBars()
 
                         fireEventForOtherLibrariesToHookInto('alpine:navigated')
                     })
